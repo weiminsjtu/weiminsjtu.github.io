@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>事件委托 | 魏敏</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这两天了解到关于事件的相关知识，进一步了解到事件委托，记录之。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="事件委托">
+<meta property="og:url" content="http://yoursite.com/2015/08/03/js-event-delegation/index.html">
+<meta property="og:site_name" content="魏敏">
+<meta property="og:description" content="这两天了解到关于事件的相关知识，进一步了解到事件委托，记录之。">
+<meta property="og:updated_time" content="2015-08-03T13:03:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="事件委托">
+<meta name="twitter:description" content="这两天了解到关于事件的相关知识，进一步了解到事件委托，记录之。">
+  
+    <link rel="alternative" href="/atom.xml" title="魏敏" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars3.githubusercontent.com/u/11488580?v=3&amp;s=460" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">魏敏</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/随笔">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/weiminsjtu" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2710648914" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wei-min-63" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/CSS3/" style="font-size: 15px;">CSS3</a> <a href="/tags/Flexbox/" style="font-size: 15px;">Flexbox</a> <a href="/tags/IoT-比赛承办/" style="font-size: 10px;">IoT 比赛承办</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Location-based-Services/" style="font-size: 10px;">Location-based Services</a> <a href="/tags/Route-Recommending/" style="font-size: 10px;">Route Recommending</a> <a href="/tags/Swiper/" style="font-size: 10px;">Swiper</a> <a href="/tags/Trajectory-Mining/" style="font-size: 10px;">Trajectory Mining</a> <a href="/tags/event-delegation/" style="font-size: 10px;">event delegation</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 15px;">jQuery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/pagePiling-js/" style="font-size: 10px;">pagePiling.js</a> <a href="/tags/开始/" style="font-size: 10px;">开始</a> <a href="/tags/插件/" style="font-size: 15px;">插件</a> <a href="/tags/案例/" style="font-size: 10px;">案例</a> <a href="/tags/滑动/" style="font-size: 10px;">滑动</a> <a href="/tags/盒模型/" style="font-size: 10px;">盒模型</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我要一步一步往上爬，等待阳光静静看着它的脸，小小的天有大大的梦想，重重的壳裹着轻轻地仰望。我要一步一步往上爬，在最高点乘着叶片往前飞，小小的天流过的泪和汗，总有一天我有属于我的天。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">魏敏</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars3.githubusercontent.com/u/11488580?v=3&amp;s=460" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">魏敏</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/weiminsjtu" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2710648914" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wei-min-63" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-js-event-delegation" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/08/03/js-event-delegation/" class="article-date">
+  	<time datetime="2015-08-03T13:03:52.000Z" itemprop="datePublished">2015-08-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      事件委托
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event-delegation/">event delegation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这两天了解到关于事件的相关知识，进一步了解到事件委托，记录之。<br><a id="more"></a></p>
+<h3 id="问题背景">问题背景</h3><p>1.元素过多的性能问题</p>
+<p>开发的时候，我们通常需要为某些元素添加事件监听，比如相册，点击每一张图片弹出框显示大图等具体详情，如果我们为每个图片绑定事件，而且图片数目庞大，显然不现实，可能会占用大量内存，脚本执行速度变慢。</p>
+<p>2.元素动态加载</p>
+<p>相册应用中，通常会动态加载一组图片，那么这组图片无法绑定事件。</p>
+<h3 id="事件委托">事件委托</h3><p>利用<strong>事件冒泡</strong>来实现事件委托机制。使用事件委托技术能让你避免对特定的每个节点添加事件监听器，其事件监听器是被添加到它们的上层元素上，并分析是从哪个子元素冒泡上来的。</p>
+<p>比如：</p>
+<pre><code><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"parent-list"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-1"</span>&gt;</span>Item 1<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-2"</span>&gt;</span>Item 2<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-3"</span>&gt;</span>Item 3<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-4"</span>&gt;</span>Item 4<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-5"</span>&gt;</span>Item 5<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-6"</span>&gt;</span>Item 6<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+</code></pre><p>当子元素的事件冒泡到父ul元素时，你可以检查事件对象的target属性，捕获真正被点击的节点元素的引用。</p>
+<pre><code><span class="comment">// 找到父元素，添加监听器</span>
+document.getElementById(<span class="string">"parent-list"</span>).addEventListener(<span class="string">"click"</span>,function(<span class="keyword">e</span>) {
+    <span class="comment">// e.target是被点击的元素!</span>
+    <span class="comment">// 如果被点击的是li元素</span>
+    <span class="keyword">if</span>(<span class="keyword">e</span>.target &amp;&amp; <span class="keyword">e</span>.target.nodeName == <span class="string">"li"</span>) {
+        <span class="comment">// 找到目标，输出ID!</span>
+        console.<span class="literal">log</span>(<span class="string">"List item "</span>,<span class="keyword">e</span>.target.id.<span class="keyword">replace</span>(<span class="string">"post-"</span>),<span class="string">" was clicked!"</span>);
+    }
+});
+</code></pre><h3 id="jQuery事件委托机制">jQuery事件委托机制</h3><p>jQuery为绑定和委托事件提供了.bind()、.live()和.delegate()方法。</p>
+<p>1.<strong>.bind()</strong></p>
+<p>如果我们想实现一个简单的相册应用，每页只显示50张照片的缩略图（50个单元格），用户点击“第x页”（或“下一页”）链接可以通过Ajax从服务器动态加载另外50张照片。在这种情况下，似乎使用.bind()方法为50个单元格绑定事件又可以接受了。</p>
+<p>事实却不然。使用.bind()方法只会给第一页中的50个单元格绑定单击事件，动态加载的后续页面中的单元格都不会有这个单击事件。换句话说，.bind()<u><strong>只能给调用它的时候已经存在的元素绑定事件，不能给未来新增的元素绑定事件</strong></u>。</p>
+<p>那么可以使用live()方法解决，但它把事件绑定到$(document)对象，在接收到任何事件时，$(document)对象都会检查事件类型和事件目标。</p>
+<p>2.<strong>.live()</strong></p>
+<p>虽然解决了前面需要为每个元素绑定事件的问题，但live方法也有其缺点：</p>
+<ul>
+<li>默认把事件绑定到$(document)元素，如果DOM嵌套结构很深，事件冒泡通过大量祖先元素会导致性能损失；</li>
+<li>只能放在直接选择的元素后面，不能在连缀的DOM遍历方法后面使用，即$(“”).live…可以，但$(“”).find(“”)….live…不行；</li>
+<li>$()函数会找到当前页面中的所有td元素并创建jQuery对象，但在确认事件目标时却不用这个td元素集合，而是使用选择符表达式与event.target或其祖先元素进行比较，因而生成这个jQuery对象会造成不必要的开销；</li>
+</ul>
+<p><strong>方法</strong></p>
+<p>为了避免生成不必要的jQuery对象，可以使用一种叫做“早委托”的hack，即在$(document).ready()方法外部调用.live()：</p>
+<pre><code><span class="list">(<span class="keyword">function</span><span class="list">($)</span><span class="collection">{
+    $<span class="list">(<span class="string">"#info_table td"</span>)</span>.live<span class="list">(<span class="string">"click"</span>,function<span class="list">()</span><span class="collection">{/*显示更多信息*/}</span>)</span><span class="comment">;</span>
+}</span>)</span><span class="list">(<span class="keyword">jQuery</span>)</span><span class="comment">;</span>
+</code></pre><p>使用这个hack时，脚本必须是在页面的head元素中链接和(或)执行的。之所以选择这个时机，因为这时候刚好document元素可用，而整个DOM还远未生成；如果把脚本放在结束的body标签前面，就没有意义了，因为那时候DOM已经完全可用了。</p>
+<p>为了避免事件冒泡造成的性能损失，.live()方法也提供配合使用一个上下文参数：</p>
+<pre><code>$(<span class="string">"td"</span>,$(<span class="string">"#info_table"</span>)[<span class="number">0</span>]).live(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{<span class="comment">/*显示更多信息*/</span>});
+</code></pre><p>这样，“受托方”就从默认的$(document)变成了$(“#info_table”)[0]，节省了冒泡的旅程。</p>
+<p>3.<strong>.delegate()</strong></p>
+<p>如前，从.bind 到 .live,又到为.live()方法指定上下文对象来解决“事件传播链”过长的问题。而为了解决无谓生成元素集合的问题，jQuery引入了一个新方法.delegate()。</p>
+<pre><code>$(<span class="string">"#info_table"</span>).delegate(<span class="string">"td"</span>,<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{<span class="comment">/*显示更多信息*/</span>});
+</code></pre><p>优点：</p>
+<ul>
+<li>直接将目标元素选择符（”td”）、事件（”click”）及处理程序与“受拖方”$(“#info_table”)绑定，不额外收集元素、事件传播路径缩短、语义明确；</li>
+<li>支持在连缀的DOM遍历方法后面调用，即支持$(“table”).find(“#info”).delegate…，支持精确控制；</li>
+</ul>
+<p>4.<strong>.on()</strong></p>
+<p>在jQuery 1.7引进了.on()后，前边的方法基本都不推荐使用了。</p>
+<pre><code><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"container"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"list"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://domain1.com"</span>&gt;</span>Item #1<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/local/path/1"</span>&gt;</span>Item #2<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/local/path/2"</span>&gt;</span>Item #3<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://domain4.com"</span>&gt;</span>Item #4<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
+
+$( "#list" ).on( "click", "a", function( event ) {
+    event.preventDefault();
+    console.log( $( this ).text() );
+});
+</code></pre><p>第一个参数说明监听的事件类型，绑定到$(“#list”)上面，当事件冒泡到$(“#list”)上后，检测事件的target，如果与第二个参数匹配就触发。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/08/04/json/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          JSON使用与解析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/07/30/js-property-and-method/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">傻傻分不清楚之js属性和方法</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="js-event-delegation" data-title="事件委托" data-url="http://yoursite.com/2015/08/03/js-event-delegation/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 魏敏
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

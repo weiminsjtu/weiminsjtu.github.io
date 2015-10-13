@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>1.Discovering Popular Routes from Trajectories | 魏敏</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="自从考完试，一方面继续学习实践前端开发的方方面面，另一方面在读数据挖掘相关的论文。今天突然发现，自己需要整理记录一下自己所看的论文，以期早日能够有所悟！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1.Discovering Popular Routes from Trajectories">
+<meta property="og:url" content="http://yoursite.com/2015/08/06/RecSys-MPR/index.html">
+<meta property="og:site_name" content="魏敏">
+<meta property="og:description" content="自从考完试，一方面继续学习实践前端开发的方方面面，另一方面在读数据挖掘相关的论文。今天突然发现，自己需要整理记录一下自己所看的论文，以期早日能够有所悟！">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/mpr1.png">
+<meta property="og:image" content="http://ieeexplore.ieee.org/ielx5/5765035/5767827/5767890/html/img/5767890-fig-2-large.gif">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/MPR2.jpg">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/MPR4.jpg">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/MPR5.jpg">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/MPR6.jpg">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/MPR7.jpg">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/MPR8.jpg">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/MPR9.jpg">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/MPR10.jpg">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/MPR11.jpg">
+<meta property="og:updated_time" content="2015-08-06T06:35:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1.Discovering Popular Routes from Trajectories">
+<meta name="twitter:description" content="自从考完试，一方面继续学习实践前端开发的方方面面，另一方面在读数据挖掘相关的论文。今天突然发现，自己需要整理记录一下自己所看的论文，以期早日能够有所悟！">
+  
+    <link rel="alternative" href="/atom.xml" title="魏敏" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars3.githubusercontent.com/u/11488580?v=3&amp;s=460" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">魏敏</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/随笔">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/weiminsjtu" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2710648914" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wei-min-63" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/CSS3/" style="font-size: 15px;">CSS3</a> <a href="/tags/Flexbox/" style="font-size: 15px;">Flexbox</a> <a href="/tags/IoT-比赛承办/" style="font-size: 10px;">IoT 比赛承办</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Location-based-Services/" style="font-size: 10px;">Location-based Services</a> <a href="/tags/Route-Recommending/" style="font-size: 10px;">Route Recommending</a> <a href="/tags/Swiper/" style="font-size: 10px;">Swiper</a> <a href="/tags/Trajectory-Mining/" style="font-size: 10px;">Trajectory Mining</a> <a href="/tags/event-delegation/" style="font-size: 10px;">event delegation</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 15px;">jQuery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/pagePiling-js/" style="font-size: 10px;">pagePiling.js</a> <a href="/tags/开始/" style="font-size: 10px;">开始</a> <a href="/tags/插件/" style="font-size: 15px;">插件</a> <a href="/tags/案例/" style="font-size: 10px;">案例</a> <a href="/tags/滑动/" style="font-size: 10px;">滑动</a> <a href="/tags/盒模型/" style="font-size: 10px;">盒模型</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我要一步一步往上爬，等待阳光静静看着它的脸，小小的天有大大的梦想，重重的壳裹着轻轻地仰望。我要一步一步往上爬，在最高点乘着叶片往前飞，小小的天流过的泪和汗，总有一天我有属于我的天。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">魏敏</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars3.githubusercontent.com/u/11488580?v=3&amp;s=460" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">魏敏</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/weiminsjtu" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2710648914" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wei-min-63" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-RecSys-MPR" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/08/06/RecSys-MPR/" class="article-date">
+  	<time datetime="2015-08-06T06:35:34.000Z" itemprop="datePublished">2015-08-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      1.Discovering Popular Routes from Trajectories
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Location-based-Services/">Location-based Services</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Route-Recommending/">Route Recommending</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Trajectory-Mining/">Trajectory Mining</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>自从考完试，一方面继续学习实践前端开发的方方面面，另一方面在读数据挖掘相关的论文。今天突然发现，自己需要整理记录一下自己所看的论文，以期早日能够有所悟！<br><a id="more"></a></p>
+<h3 id="总结">总结</h3><p>这篇论文核心思想是通过挖掘用户的历史路径，并<strong>考虑给定目的地</strong>，来得到出发点和目的地之间的<strong>最受欢迎路线</strong>（the most popular route）。</p>
+<p><strong>创新点：</strong><br>在没有road network的情况下，采用类似于density的cluster（density＋direction）算法构建transfer nework；</p>
+<p>计算转移概率矩阵的时候，考虑目的地信息，采取the Absorbing Markov Chain model计算概率矩阵；</p>
+<p>得到最受欢迎路线时，采取BFS方式。</p>
+<p><strong>最受欢迎路线，考虑给定目的地，没有road network</strong></p>
+<p><strong> R-tree/the Absorbing Markov Chain model </strong></p>
+<h3 id="Intruduction">Intruduction</h3><p>开篇当然是说移动设备的普遍存在啊，基于地理位置的服务啊，都大量存在啥的。与目前普遍研究的最短／最快路径不同的地方在于，最受欢迎路径是从历史真实数据中得到的统计结果。MPR对于那些去陌生地方旅游的人简直就是福利，因为MPR多半会覆盖所有热点旅游景点，而最短或最快路径在这个应用场景下就不适合。这篇论文采取的数据集是一个truck的gps轨迹数据集，所以对于卡车司机物流运输来说，最快或最短路径可能不适合，因为有的路段是限重的，MPR则根据历史路径信息就已经排除掉了这些因素。－－－－重点就在于<strong>应用场景不同</strong></p>
+<p>转而考虑“最受欢迎”，怎么样才算最受欢迎呢？最naive的想法就是起点和终点之间的不同路线，统计每条路线上的路径数量，最高者即最受欢迎。但现实情况却是，起点和终点之间的不同路线往往是交织的，也就是说一条路线可能由多个路径片段构成。这样就不可能单纯靠统计数量来确定结果了。所以，我们需要基于路径片段来设计popularity function从而得到路线的受欢迎程度.</p>
+<p>另外，还需要考虑目的地信息，如果一条路线带领用户偏离目的地，那么意义也不大，即使它比较受欢迎。</p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/mpr1.png" alt="a route can be a combination of different trajectory segments 
+"></p>
+<p>论文主要由以下部分构成：</p>
+<ol>
+<li>construct a <strong>transfer network</strong> from raw trajectories.(pre-processing)<ul>
+<li>Coherence Expanding algorithm(考虑方向)</li>
+<li>Moving behaviors between locations</li>
+</ul>
+</li>
+<li>Derive a reasonable <strong>transfer probability</strong> for each transfer node<ul>
+<li>The Absorbing Markov Chain Model(考虑目的地)</li>
+<li>Indicator of popularity</li>
+<li>Popularity of route = transfer probabilities of all transfer nodes on the route</li>
+</ul>
+</li>
+<li>Discover the MPR in a BFS manner<ul>
+<li>Maximum Probability Product algorithm</li>
+</ul>
+</li>
+</ol>
+<h3 id="I-_Mining_Transfer_Network">I. Mining Transfer Network</h3><p>A directional graph G(N,E) indicating the movements between locations</p>
+<p><img src="http://ieeexplore.ieee.org/ielx5/5765035/5767827/5767890/html/img/5767890-fig-2-large.gif" alt=""></p>
+<p>想要构建上图所示的图，那么首先就是如何得到这些节点？</p>
+<ol>
+<li>How to detect the intersections?</li>
+</ol>
+<p>节点，一般都是不同方向的路径相交或汇聚的地方，用户极有可能在这种地方转弯。</p>
+<p>如果有road network，我们可以采用map-matching的方法；但本文作者试图扩大到没有road network的情况。所以，考虑到没有road network，作者观察到：</p>
+<ul>
+<li><strong>Density</strong>——within an intersection region, the density of trajectory points is normally higher in comparision with the density of points on an incoming/outcoming road edge.</li>
+<li><strong>Direction</strong>——trajectories may change moving direction at an intersection, as some people make truns.(0~𝜋) 越接近𝜋/2越有可能是intersection.</li>
+<li>Different intersections has different density</li>
+</ul>
+<p>所以，我们就需要cluter一些满足以上条件的points，来得到节点。</p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/MPR2.jpg" alt="definitions"></p>
+<p>两点的coherence公式中，前半部分表示density，后半部分表示direction(角度)。主要考虑的是角度，弱化了density部分。两点距离越近，方向不同，那么他们coherence就高。如果高于一个阈值，它们就是直接相关的。</p>
+<p>基于以上的定义，我们找intersection 的过程也就是在给定cluster size的情况下<strong>找 a set of coherence-connected trajectory points</strong>(类似于基于密度的聚类)。也就是下面的算法。</p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/MPR4.jpg" alt=""></p>
+<p>遍历每个点，如果还没被分到某个cluster里，在line 4利用directly coherence connected关系来expand。完成后，如果cluster的size超过阈值则有效。</p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/MPR5.jpg" alt=""></p>
+<p>Seeds和result最开始只有传入的点p，while循环里，遍历每个seed，rangeQuery是在以seed为中心，radius为半径的范围内寻找更多满足的点（满足dcc关系），加入seeds队列和result。整个过程从p点开始知道找不到满足dcc关系的点后，返回整个cluster。</p>
+<p>至于cluster的半径的设置，如果太小可能miss一些dcc的点，如果太大，又费力不讨好。作者将半径设为满足coherence &gt;= y的最大的距离。</p>
+<p>得到这些cluster后，将这块区域的平均坐标作为整个节点的坐标，并根据路径信息添加转移边。最后就得到了我们的transfer network.</p>
+<h3 id="II-_Deriving_Transfer_Probability">II. Deriving Transfer Probability</h3><p>核心是找出那个节点更有可能指引用户去到目的地。</p>
+<p>1).</p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/MPR6.jpg" alt=""></p>
+<p>第一个公式压根没考虑目的地，单纯地考虑用户从当前节点接下来走哪条边的概率（从ni出发选择e(ni-nj)这条路走的概率）。第二个公式在一的基础上，用func(traj,d)来表示一条路径traj有多大可能性建议一条路线到目的地（Dist是d和traj的从ni开始的前面部分的最短距离。如果本来就经过了d，那么func ＝ 1，所以距离越大越有可能偏离）。即： <strong>用户为了去目的地在一个节点会有多大可能性走某条边e</strong>。</p>
+<p>2).</p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/MPR7.jpg" alt=""></p>
+<p>ni的transfer probability越大，说明越有可能让我们去目的地。𝑝𝑡𝑛𝑖,𝑛𝑗 表示从ni开始经过t步第一次到达nj的概率。Pr(ni-d)从ni能在t步之内到达d的概率.</p>
+<p>3).如何计算上述概率呢？</p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/MPR8.jpg" alt=""></p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/MPR9.jpg" alt=""></p>
+<p>采用Absorbing Markov Chain Model来计算，前面t－1步都应该是transient state的点，第t步就是一个transient点到destination。对于t的设置，如果太小，甚至比到达d最短路径的步数还小，那么找不到这样的路线，如果太大计算复杂，正常人也不会走如此长的路线。<br>T设为转移网络的直径，能保证至少找到一条，而且避免找那种太长的路线。</p>
+<p>最后，就得到了概率转移矩阵。</p>
+<h3 id="Searching_the_Most_Popular_Route">Searching the Most Popular Route</h3><p>Route popularity等于路线上每个节点到d的popularity之积，如果路线很长，可能其值很小。而为了得到最受欢迎的路线，两个点之间的路线可能有很多条，一条一条去计算其路线popularity不现实，作者提出采用BFS的方法。</p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/MPR10.jpg" alt=""></p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/MPR11.jpg" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/12/summary/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          两个月来承办比赛总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/08/04/json/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JSON使用与解析</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="RecSys-MPR" data-title="1.Discovering Popular Routes from Trajectories" data-url="http://yoursite.com/2015/08/06/RecSys-MPR/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 魏敏
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

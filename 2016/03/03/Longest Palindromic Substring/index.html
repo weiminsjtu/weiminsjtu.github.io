@@ -8,15 +8,15 @@
   <meta name="description" content="今年注定会是忙碌的一年，找实习、找工作、发论文、毕业设计……虽然去年就想到要刷leetcode，但是一直都没有着手开始。前两天在知乎看到有人说，“刷了leetcode不见得拿到offer，但不刷leetcode肯定拿不到offer”。呵呵哒，进入狂刷leetcode的状态ing。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Longest Palindromic Substring最长回文子串">
-<meta property="og:url" content="http://yoursite.com/2016/03/02/Longest Palindromic Substring/index.html">
+<meta property="og:url" content="http://yoursite.com/2016/03/03/Longest Palindromic Substring/index.html">
 <meta property="og:site_name" content="魏敏">
 <meta property="og:description" content="今年注定会是忙碌的一年，找实习、找工作、发论文、毕业设计……虽然去年就想到要刷leetcode，但是一直都没有着手开始。前两天在知乎看到有人说，“刷了leetcode不见得拿到offer，但不刷leetcode肯定拿不到offer”。呵呵哒，进入狂刷leetcode的状态ing。">
-<meta property="og:image" content="http://images.cnblogs.com/cnblogs_com/bitzhuwei/595835/o_longestPalindromicSubString01.png">
-<meta property="og:image" content="http://images.cnblogs.com/cnblogs_com/bitzhuwei/595835/o_longestPalindromicSubString02.png">
-<meta property="og:image" content="http://images.cnblogs.com/cnblogs_com/bitzhuwei/595835/o_longestPalindromicSubString04.png">
-<meta property="og:image" content="http://images.cnblogs.com/cnblogs_com/bitzhuwei/595835/o_longestPalindromicSubString04.png">
-<meta property="og:image" content="http://images.cnblogs.com/cnblogs_com/bitzhuwei/595835/o_longestPalindromicSubString06.png">
-<meta property="og:updated_time" content="2016-03-02T06:25:24.000Z">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/o_longestPalindromicSubString01.png">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/o_longestPalindromicSubString02.png">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/o_longestPalindromicSubString03.png">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/o_longestPalindromicSubString04.png">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/o_longestPalindromicSubString06.png">
+<meta property="og:updated_time" content="2016-03-03T03:40:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Longest Palindromic Substring最长回文子串">
 <meta name="twitter:description" content="今年注定会是忙碌的一年，找实习、找工作、发论文、毕业设计……虽然去年就想到要刷leetcode，但是一直都没有着手开始。前两天在知乎看到有人说，“刷了leetcode不见得拿到offer，但不刷leetcode肯定拿不到offer”。呵呵哒，进入狂刷leetcode的状态ing。">
@@ -199,8 +199,8 @@
       <div class="body-wrap"><article id="post-Longest Palindromic Substring" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/02/Longest Palindromic Substring/" class="article-date">
-  	<time datetime="2016-03-02T06:25:24.000Z" itemprop="datePublished">2016-03-02</time>
+      <a href="/2016/03/03/Longest Palindromic Substring/" class="article-date">
+  	<time datetime="2016-03-03T03:40:13.000Z" itemprop="datePublished">2016-03-03</time>
 </a>
     </div>
   
@@ -242,14 +242,14 @@
 <pre><code><span class="variable">T =</span> <span class="comment"># a # b # a # a # b # a #</span>
 <span class="variable">P =</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">3</span> <span class="number">0</span> <span class="number">1</span> <span class="number">6</span> <span class="number">1</span> <span class="number">0</span> <span class="number">3</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span>
 </code></pre><p>3.怎么计算P[i]呢？<br>我们来看一个重叠得更典型的例子，即S=”babcbabcbaccba”。</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/bitzhuwei/595835/o_longestPalindromicSubString01.png" alt=""></p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/o_longestPalindromicSubString01.png" alt=""></p>
 <p>假设目前for循环遍历，我们已经计算出了一部分P。竖实线表示回文”abcbabcba”的中心C，两个虚实线表示其左右边界L和R。你下一步要计算P[i]，i围绕C的对称点是i’。你有办法高效地计算P[i]吗？</p>
 <p>我们先看一下i围绕C的对称点i’（此时i’=9）。</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/bitzhuwei/595835/o_longestPalindromicSubString02.png" alt=""></p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/o_longestPalindromicSubString02.png" alt=""></p>
 <p>据上图所示，很明显P[i]=P[i’]=1。这是因为i和i’围绕C对称。同理，P[12]=P[10]=0，P[14]=P[8]=0。现在再看i=15处。</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/bitzhuwei/595835/o_longestPalindromicSubString04.png" alt=""></p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/o_longestPalindromicSubString03.png" alt=""></p>
 <p>此时P[15]=P[7]=7？错了，你逐个字符检测一下会发现此时P[15]应该是5。为什么呢？</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/bitzhuwei/595835/o_longestPalindromicSubString04.png" alt=""></p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/o_longestPalindromicSubString04.png" alt=""></p>
 <p>如上图所示，两条绿色实线划定的范围必定是对称的，两条绿色虚线划定的范围必定也是对称的。此时请注意P[i’]=7，超过了左边界L。超出的部分就不对称了。此时我们只知道P[i]&gt;=5，至于P[i]还能否扩展，只有通过逐个字符检测才能判定了。(即超出右边界的部分需要逐个字符检测)<br>在此例中，P[21]≠P[9]，所以P[i]=P[15]=5。</p>
 <pre><code>if <span class="built_in">P[ i' ]</span> &lt; <span class="keyword">R</span> – i,（未越界）
 
@@ -259,7 +259,7 @@ else <span class="built_in">P[ i ]</span> ≥ <span class="keyword">R</span> - i
     此时要穿过<span class="keyword">R</span>逐个字符判定<span class="built_in">P[i]</span>).
 </code></pre><p>4.C的位置是需要移动的，如果i处的回文超过了R，那么就C=i，同时相应改变L和R即可。</p>
 <p>所以，每次求P[i]，都有两种可能。如果P[i‘] &lt; R – i，我们就P[i] = P[i’]。否则，就从R开始逐个字符求P[i]，并更新C及其R。</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/bitzhuwei/595835/o_longestPalindromicSubString06.png" alt=""></p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/o_longestPalindromicSubString06.png" alt=""></p>
 <p>过程描述如下：<br>＊P[0],P[1]均为0<br>＊i＝2，比较T[i+1]和T[i-1]，比较边界长度为i，直到找到不相等情况，此时P[2]=1,令c＝2即中心点,R=c+P[2]=3 L=c-P[2]=1；<br>＊i=3,P[i’]=P[i-2(i-c)]=P[2c-i]=P[1]=0,R-i=0,所以需要逐个检测字符（原理同上）。最后得到P[i]<br>*i=4,明显需要逐个检测，得到P[4]=3,令c=4,R=7,L=1.继续……</p>
 <p>C的位置始终指的是当前最长回文子串的中心位置。</p>
 <h3 id="js_code">js code</h3><pre><code><span class="keyword">var</span> longestPalindrome = function(s) {
@@ -331,7 +331,7 @@ t=<span class="string">"#"</span> + t + <span class="string">"#"</span>;
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Longest Palindromic Substring" data-title="Longest Palindromic Substring最长回文子串" data-url="http://yoursite.com/2016/03/02/Longest Palindromic Substring/"></div>
+	<div class="ds-thread" data-thread-key="Longest Palindromic Substring" data-title="Longest Palindromic Substring最长回文子串" data-url="http://yoursite.com/2016/03/03/Longest Palindromic Substring/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

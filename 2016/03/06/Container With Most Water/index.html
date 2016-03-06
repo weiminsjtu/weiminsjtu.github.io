@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016 | 魏敏</title>
+  <title>Container With Most Water | 魏敏</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习总结 思考感悟 知识管理">
-<meta property="og:type" content="website">
-<meta property="og:title" content="魏敏">
-<meta property="og:url" content="http://yoursite.com/archives/2016/index.html">
+  <meta name="description" content="考察算法的时候，很多时候如果采用两个指针，则能很大程度上优化算法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Container With Most Water">
+<meta property="og:url" content="http://yoursite.com/2016/03/06/Container With Most Water/index.html">
 <meta property="og:site_name" content="魏敏">
-<meta property="og:description" content="学习总结 思考感悟 知识管理">
+<meta property="og:description" content="考察算法的时候，很多时候如果采用两个指针，则能很大程度上优化算法。">
+<meta property="og:updated_time" content="2016-03-06T04:55:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="魏敏">
-<meta name="twitter:description" content="学习总结 思考感悟 知识管理">
+<meta name="twitter:title" content="Container With Most Water">
+<meta name="twitter:description" content="考察算法的时候，很多时候如果采用两个指针，则能很大程度上优化算法。">
   
     <link rel="alternative" href="/atom.xml" title="魏敏" type="application/atom+xml">
   
@@ -190,115 +191,128 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-Container With Most Water" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/06/Container With Most Water/" class="archive-article-date">
-  	<time datetime="2016-03-06T04:55:50.000Z" itemprop="datePublished">Mar 6</time>
+    <div class="article-meta">
+      <a href="/2016/03/06/Container With Most Water/" class="article-date">
+  	<time datetime="2016-03-06T04:55:50.000Z" itemprop="datePublished">2016-03-06</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/06/Container With Most Water/">Container With Most Water</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Container With Most Water
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithms/">algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
 	</div>
 
-          
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+      </div>
+      
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/03/ZigZag Conversion/" class="archive-article-date">
-  	<time datetime="2016-03-03T04:14:19.000Z" itemprop="datePublished">Mar 3</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/03/ZigZag Conversion/">ZigZag Conversion</a>
-    </h1>
-  
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>考察算法的时候，很多时候如果采用两个指针，则能很大程度上优化算法。<br><a id="more"></a></p>
+<h3 id="Question">Question</h3><p>Given n non-negative integers a1, a2, …, an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.</p>
+<p>Note: You may not slant the container.</p>
+<h3 id="算法O(N)">算法O(N)</h3><p>数组中的每个数对应一条线段的长度，索引对应x坐标，两个索引可以组成一个底部的宽，高度就是前面所说的线段的长度，而既然是要盛水，按照短板原理，高度就是两个线段中较短的一个。</p>
+<p>一般这种涉及到需要左右两个值合起来成为什么的情况，需要考虑两个指针，从而降低复杂度。</p>
+<p>这里，实际上是一个贪心策略，每次取两边围栏最矮的一个推进，希望获取更多的水。为什么选择最矮的呢？如果选择最高的推进的话，因为短板原理，只会导致容器容积越来越小。</p>
+<p>所以，两边分别设一个指针，然后计算面积area，如果height[i]&lt;=height[j],i++。</p>
+<h3 id="js_code">js code</h3><pre><code>/**
+ * @param {number[]} height
+ * @<span class="keyword">return</span> {number}**/
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithms/">algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/字符串/">字符串</a></li></ul>
+<span class="keyword">var</span> maxArea = function(height) {
+    <span class="keyword">var</span> i=<span class="number">0</span>,j=height.length -<span class="number">1</span>,<span class="literal">result</span>=<span class="number">0</span>;
+
+    <span class="keyword">while</span>(i&lt;j){
+        <span class="keyword">var</span> area = (j-i)*<span class="type">Math</span>.min(height[i],height[j]);
+        <span class="literal">result</span> = <span class="type">Math</span>.max(<span class="literal">result</span>,area);
+        <span class="keyword">if</span>(height[i]&lt;=height[j]){
+            i++;
+        }<span class="keyword">else</span>{
+               j--;
+        }
+    }
+
+    <span class="keyword">return</span> <span class="literal">result</span>;
+};
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/03/ZigZag Conversion/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ZigZag Conversion</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/03/Longest Palindromic Substring/" class="archive-article-date">
-  	<time datetime="2016-03-03T03:40:13.000Z" itemprop="datePublished">Mar 3</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/03/Longest Palindromic Substring/">Longest Palindromic Substring最长回文子串</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithms/">algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
-	</div>
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Container With Most Water" data-title="Container With Most Water" data-url="http://yoursite.com/2016/03/06/Container With Most Water/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
 
 </div>
       <footer id="footer">
@@ -324,8 +338,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false

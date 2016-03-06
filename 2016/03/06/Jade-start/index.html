@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: 字符串 | 魏敏</title>
+  <title>初识Jade之所想 | 魏敏</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习总结 思考感悟 知识管理">
-<meta property="og:type" content="website">
-<meta property="og:title" content="魏敏">
-<meta property="og:url" content="http://yoursite.com/tags/字符串/index.html">
+  <meta name="description" content="不得不说从目前来看，Node.js和AngularJS占据了前端开发的各大新闻版面头条，在太阳的后裔陪伴下，我也开始了Jade初始之旅。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识Jade之所想">
+<meta property="og:url" content="http://yoursite.com/2016/03/06/Jade-start/index.html">
 <meta property="og:site_name" content="魏敏">
-<meta property="og:description" content="学习总结 思考感悟 知识管理">
+<meta property="og:description" content="不得不说从目前来看，Node.js和AngularJS占据了前端开发的各大新闻版面头条，在太阳的后裔陪伴下，我也开始了Jade初始之旅。">
+<meta property="og:updated_time" content="2016-03-06T10:16:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="魏敏">
-<meta name="twitter:description" content="学习总结 思考感悟 知识管理">
+<meta name="twitter:title" content="初识Jade之所想">
+<meta name="twitter:description" content="不得不说从目前来看，Node.js和AngularJS占据了前端开发的各大新闻版面头条，在太阳的后裔陪伴下，我也开始了Jade初始之旅。">
   
     <link rel="alternative" href="/atom.xml" title="魏敏" type="application/atom+xml">
   
@@ -190,53 +191,125 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-Jade-start" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/03/ZigZag Conversion/" class="archive-article-date">
-  	<time datetime="2016-03-03T04:14:19.000Z" itemprop="datePublished">Mar 3</time>
+    <div class="article-meta">
+      <a href="/2016/03/06/Jade-start/" class="article-date">
+  	<time datetime="2016-03-06T10:16:39.000Z" itemprop="datePublished">2016-03-06</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/03/ZigZag Conversion/">ZigZag Conversion</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      初识Jade之所想
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithms/">algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/字符串/">字符串</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML预编译/">HTML预编译</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jade/">Jade</a></li></ul>
 	</div>
 
-          
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      </div>
+      
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>不得不说从目前来看，Node.js和AngularJS占据了前端开发的各大新闻版面头条，在太阳的后裔陪伴下，我也开始了Jade初始之旅。<br><a id="more"></a></p>
+<h3 id="Jade是什么？">Jade是什么？</h3><ul>
+<li>HTML模板引擎</li>
+<li>javascript实现</li>
+<li>供Node使用</li>
+</ul>
+<p>在这里，我不会花功夫把Jade API照搬过来，Jade的语法或者其使用习惯，个人认为，在正式开发中，用一用，熟悉了就可以。    </p>
+<h3 id="Jade印象">Jade印象</h3><p>因为以前有使用Sass/Less这类CSS预编译工具，个人觉得Jade和它们异曲同工，甚至就像是失散多年的姐妹。</p>
+<p>它们有很多共同点：</p>
+<ul>
+<li>使用缩进来识别层次关系</li>
+<li>语法上相似 相近</li>
+<li>均有变量，mixins</li>
+<li>均有代码复用，如继承和包含</li>
+<li>……</li>
+</ul>
+<p>Jade还有过滤器，可以混合使用如markdown或coffeescript这类代码；</p>
+<p>另外，除开在客户端编写Jade，然后通过命令行编译为HTML文件外，它还支持在Node 服务器端直接调用Jade的compile、compileFile、render、renderFile等，进行编译返回结果。</p>
+<h3 id="Jade的缺点">Jade的缺点</h3><ul>
+<li>调试困难，需要花费更多的脑力</li>
+<li>Jade用了缩进，但有时候个人反而会觉得条理不够HTML代码清晰怎么办？</li>
+</ul>
+<p>知乎上，各路前端大牛对于前端模板均有不同的推荐，比如swig、EJS、Mustache等等，看来仅模板引擎这个轮子，都还需要多了解多思考哇……</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/06/Roman and Interger/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Roman and Interger数字和罗马数字互相转换</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Jade-start" data-title="初识Jade之所想" data-url="http://yoursite.com/2016/03/06/Jade-start/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 </div>
       <footer id="footer">
@@ -262,9 +335,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}

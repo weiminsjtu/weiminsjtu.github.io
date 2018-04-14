@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>记2016阿里暑期实习一面 | 魏敏</title>
+  <title>webpack配置_html-webpack-plugin | 魏敏</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="面试时间：2016年03月18日面试形式：电话面试从投递简历到接到一面电话历时4天，但因为最近身边发生的各种各样的事情，还没来得及复习，自我感觉回答得没有达到我的水平。">
+  <meta name="description" content="本篇介绍了webpack中常见到的plugin：html-webpack-plugin。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记2016阿里暑期实习一面">
-<meta property="og:url" content="http://yoursite.com/2016/03/22/记2016阿里暑期实习一面/index.html">
+<meta property="og:title" content="webpack配置_html-webpack-plugin">
+<meta property="og:url" content="http://yoursite.com/2018/04/14/webpack配置_html-webpack-plugin/index.html">
 <meta property="og:site_name" content="魏敏">
-<meta property="og:description" content="面试时间：2016年03月18日面试形式：电话面试从投递简历到接到一面电话历时4天，但因为最近身边发生的各种各样的事情，还没来得及复习，自我感觉回答得没有达到我的水平。">
-<meta property="og:updated_time" content="2016-03-22T14:22:15.000Z">
+<meta property="og:description" content="本篇介绍了webpack中常见到的plugin：html-webpack-plugin。">
+<meta property="og:updated_time" content="2018-04-14T09:06:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记2016阿里暑期实习一面">
-<meta name="twitter:description" content="面试时间：2016年03月18日面试形式：电话面试从投递简历到接到一面电话历时4天，但因为最近身边发生的各种各样的事情，还没来得及复习，自我感觉回答得没有达到我的水平。">
+<meta name="twitter:title" content="webpack配置_html-webpack-plugin">
+<meta name="twitter:description" content="本篇介绍了webpack中常见到的plugin：html-webpack-plugin。">
   
     <link rel="alternative" href="/atom.xml" title="魏敏" type="application/atom+xml">
   
@@ -191,11 +191,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-记2016阿里暑期实习一面" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-webpack配置_html-webpack-plugin" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/22/记2016阿里暑期实习一面/" class="article-date">
-  	<time datetime="2016-03-22T14:22:15.000Z" itemprop="datePublished">2016-03-22</time>
+      <a href="/2018/04/14/webpack配置_html-webpack-plugin/" class="article-date">
+  	<time datetime="2018-04-14T09:06:15.000Z" itemprop="datePublished">2018-04-14</time>
 </a>
     </div>
   
@@ -208,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      记2016阿里暑期实习一面
+      webpack配置_html-webpack-plugin
     </h1>
   
 
@@ -217,7 +217,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
 	</div>
 
         
@@ -228,45 +228,87 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>面试时间：2016年03月18日<br>面试形式：电话面试<br>从投递简历到接到一面电话历时4天，但因为最近身边发生的各种各样的事情，还没来得及复习，自我感觉回答得没有达到我的水平。<br><a id="more"></a></p>
-<h3 id="面试问题">面试问题</h3><p>本来正在思考最长递增子序列的问题，突然接到了一个北京的号码，表示有点纳闷儿，原来是阿里巴巴的面试。首先是简单的自我介绍（表示自己连自我介绍都没想过，所以就很紧张的说了几句，表示都没说到重点-_-#）</p>
-<p>关于面试问题，仅凭自己回忆，先后顺序次要哈。</p>
-<p><strong>css相关</strong></p>
+        <p>本篇介绍了webpack中常见到的plugin：html-webpack-plugin。<br><a id="more"></a></p>
+<h3 id="介绍">介绍</h3><p>我们经常见到以下一段代码：</p>
+<pre><code><span class="comment">// webpack.config.js</span>
+<span class="module"><span class="keyword">module</span>.exports = </span>{
+    entry: path.resolve(__dirname, <span class="string">'./app/index.js'</span>),
+       output:{
+           path: path.resolve(__dirname, <span class="string">'./build'</span>),
+        filename: <span class="string">'bundle.js'</span>
+    }
+    ...
+    plugins: [
+        <span class="keyword">new</span> HtmlWebpackPlugin()
+    ]
+}
+</code></pre><p>之后在终端输入webpack命令后，就会看到在你的 build 文件夹会生成一个 index.html 文件和一个 bundle.js 文件，而且 index.html 文件中自动引用 webpack 生成的 bundle.js 文件。这都是html-webpack-plugin的功劳。</p>
+<p>html-webpack-plugin插件的主要作用是：</p>
 <ol>
-<li>能告诉我css3有哪些新特性吗？</li>
-<li>css3的transition和animation有什么区别呢？</li>
-<li>能告诉我三栏布局怎么实现吗？</li>
-<li>那我们聊一聊贝赛尔曲线吧。</li>
+<li>可以生成创建html入口文件，比如单页面可以生成一个html文件入口，配置多个html-webpack-plugin可以生成多个页面入口</li>
+<li>为html文件中引入的外部资源如script、link动态添加每次compile后的hash，防止引用缓存的外部文件问题</li>
 </ol>
-<p><strong>HTML相关</strong></p>
+<h3 id="使用">使用</h3><p>如上，实例化该插件时可以不配置任何参数，他会默认将webpack中的entry配置所有入口和extract-text-webpack-plugin抽取的css样式都插入到文件指定的位置。</p>
+<p>当然，还可以添加一些配置项：</p>
+<pre><code><span class="keyword">this</span>.<span class="keyword">options</span> = _.extend({
+    template: path.<span class="keyword">join</span>(__dirname, <span class="string">'default_index.ejs'</span>),
+       filename: <span class="string">'index.html'</span>,
+    hash: <span class="keyword">false</span>,
+    <span class="keyword">inject</span>: <span class="keyword">true</span>,
+    <span class="keyword">compile</span>: <span class="keyword">true</span>,
+    favicon: <span class="keyword">false</span>,
+    minify: <span class="keyword">false</span>,
+    cache: <span class="keyword">true</span>,
+    showErrors: <span class="keyword">true</span>,
+    chunks: <span class="string">'all'</span>,
+    excludeChunks: [],
+    title: <span class="string">'Webpack App'</span>,
+    xhtml: <span class="keyword">false</span>
+  }, <span class="keyword">options</span>);
+</code></pre><p>  <strong>title</strong>－设置生成的html文档的标题，它并不会替换指定模板文件中的title元素的内容<br>  <strong>filename</strong>－输出文件的文件名称，默认为index.html，不配置就是该文件名；此外，还可以为输出文件指定目录位置<br>  <strong>template</strong>－本地模板文件的位置，但使用自定义的模板文件时，需要提前安装对应的 loader， 否则webpack不能正确解析<br>  <strong>inject</strong>－向template或者templateContent中注入所有静态资源，不同的配置值注入的位置不经相同。</p>
 <ol>
-<li>HTML5有哪些新特性呢？</li>
-<li>你在移动适配中遇到的最深刻的问题是什么呢？（表示当时很捉急，随便说了一个没技术含量的+_+呵呵哒）</li>
+<li>true或者body：所有JavaScript资源插入到body元素的底部 </li>
+<li>head: 所有JavaScript资源插入到head元素中</li>
+<li>false： 所有静态资源css和JavaScript都不会注入到模板文件中</li>
 </ol>
-<p><strong>JavaScript相关</strong></p>
-<ol>
-<li>在项目中，你是怎么跟后端进行交互的呢？</li>
-<li>那你能介绍一下AJAX的过程吗？（其中顺便问了常见的HTTP状态码）</li>
-<li>js如何实现继承呢？</li>
-<li>js如何定义静态方法呢？<a href="http://weimin.me/2015/07/30/js-property-and-method/" target="_blank" rel="external">详见</a></li>
-<li>apply和call知道吗？有什么区别呢？</li>
-<li>jQuery的方法$()你知道有哪几种用法吗？</li>
-<li>jQuery中$(function(){})有什么用呢？</li>
-<li>你用js面向对象做过什么呢？</li>
-<li>MVC你知道吗？了解什么框架吗？</li>
-</ol>
-<p>大致这么多吧，其他的问的都是项目相关，一共半个小时，这次面试在没有准备的情况下，加上自己思路还有点没从算法中缓过来，总觉得自己会让面试官觉得自己技术很水。</p>
-<p>这次面试问的其实都是基础，但着实暴露了自己很多问题，自己总结总结进行对应的改正。</p>
-<h3 id="个人总结">个人总结</h3><p><strong>面试表现</strong></p>
-<ol>
-<li>没有准备自我介绍，临时发挥，感觉说的都不是我想展示自己的地方。</li>
-<li>完全没有咨询对方的身份，连是哪个部门面试的我，我都不清楚。以后自己需要问清楚，尽量也留下对方的分机号码。</li>
-<li>整个过程，没有调整好心态，表现得十分紧张，其实面试只是一个双向了解的过程，平稳心态，当作一次交流就可以了。<strong>有什么问题就直接问就是！不要做无谓的猜测和担忧</strong></li>
-<li>最后，面试官问我有没有问题，当时脑袋一片空白，很多细节都没问。自己着实应该需要update一下面试技巧。</li>
-<li>jQuery因为有一段时间没有使用，而且面试前没有稍微复习，加上自己非常紧张，很简单的问题都没答上。</li>
-<li>最最粗心的一点是，阿里招聘系统里边，期望城市居然选的是北京！终于找到为什么是北京的号码来面试的原因了！555555555…..宝宝表示以后不会这么粗心了。。。。。。</li>
-</ol>
-
+<p><strong>favicon</strong>- 给生成的 html 文件生成一个 favicon。属性值为 favicon 文件所在的路径名。同 title 和 filename 一样，如果在模板文件指定了 favicon，会忽略该属性。<br><strong>minify</strong>- 对 html 文件进行压缩，minify的属性值是一个压缩选项或者 false 。默认值为false, 不对生成的 html 文件进行压缩。如果是true，传递 html-minifier 选项给 minify 输出。<br><strong>hash</strong>－给生成的 js 文件一个独特的 hash 值，该 hash 值是该次 webpack 编译的 hash 值。生成如下：</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span> <span class="attribute">src</span>=<span class="value">bundle.js?22b9692e22e7be37b57e</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p><strong>cache</strong>－ 表示只有在内容变化时才生成一个新的文件<br><strong>showErrors</strong>－ 如果 webpack 编译出现错误，webpack会将错误信息包裹在一个 pre 标签内，属性的默认值为 true ，也就是显示错误信息。<br><strong>chunks</strong>－ 针对多入口(entry)文件。当你有多个入口文件的时候，对应就会生成多个编译后的 js 文件。那么 chunks 选项就可以决定是否都使用这些生成的 js 文件。chunks 默认会在生成的 html 文件中引用所有的 js 文件，当然你也可以指定引入哪些特定的文件。</p>
+<pre><code><span class="comment">// webpack.config.js</span>
+entry<span class="value">: {
+    index: path.<span class="function">resolve</span>(__dirname, <span class="string">'./src/index.js'</span>),
+    index1: path.<span class="function">resolve</span>(__dirname, <span class="string">'./src/index1.js'</span>),
+    index2: path.<span class="function">resolve</span>(__dirname, <span class="string">'./src/index2.js'</span>)
+}
+...
+plugins: [
+    new <span class="function">HtmlWebpackPlugin</span>({
+        ...
+        chunks: [<span class="string">'index'</span>,<span class="string">'index2'</span>]
+    })
+]</span>
+</code></pre><p>执行 webpack 命令之后，你会看到生成的 index.html 文件中，只引用了 index.js 和 index2.js</p>
+<p><strong>excludeChunks</strong>－跟 chunks 是相反的，排除掉某些 js 文件</p>
+<p><strong>chunksSortMode</strong>－ 决定了 script 标签的引用顺序。默认有四个选项，’none’, ‘auto’, ‘dependency’, ‘{function}’。</p>
+<h3 id="配置多个html页面">配置多个html页面</h3><p>html-webpack-plugin的一个实例生成一个html文件，如果单页应用中需要多个页面入口，或者多页应用时配置多个html时，那么就需要实例化该插件多次；</p>
+<pre><code>...
+plugins: [
+    new <span class="type">HtmlWebpackPlugin</span>({
+         <span class="keyword">template</span>: 'src/html/index.html',
+         excludeChunks: ['list', 'detail']
+    }),
+    new <span class="type">HtmlWebpackPlugin</span>({
+        filename: 'list.html',
+        <span class="keyword">template</span>: 'src/html/list.html',
+        chunks: ['common', 'list']
+    }), 
+    new <span class="type">HtmlWebpackPlugin</span>({
+      filename: 'detail.html',
+      <span class="keyword">template</span>: 'src/html/detail.html',
+       chunks: ['common', 'detail']
+    })
+]
+</code></pre>
       
     </div>
     
@@ -275,18 +317,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/08/09/Google Girl Hackathon/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Google Girl Hackathon编程女神范儿
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/20/找回手机相关技术及一点儿感想！/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">找回手机相关技术及一点儿感想！</div>
+    <a href="/2018/04/14/webpack配置_环境切换/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">webpack配置_环境</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -315,7 +348,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="记2016阿里暑期实习一面" data-title="记2016阿里暑期实习一面" data-url="http://yoursite.com/2016/03/22/记2016阿里暑期实习一面/"></div>
+	<div class="ds-thread" data-thread-key="webpack配置_html-webpack-plugin" data-title="webpack配置_html-webpack-plugin" data-url="http://yoursite.com/2018/04/14/webpack配置_html-webpack-plugin/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

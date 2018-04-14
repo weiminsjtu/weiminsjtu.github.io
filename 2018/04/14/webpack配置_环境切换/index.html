@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: IoT 比赛承办 | 魏敏</title>
+  <title>webpack配置_环境 | 魏敏</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习总结 思考感悟 知识管理">
-<meta property="og:type" content="website">
-<meta property="og:title" content="魏敏">
-<meta property="og:url" content="http://yoursite.com/tags/IoT-比赛承办/index.html">
+  <meta name="description" content="最近在学习vue.js并尝试使用webpack，本篇是对于webpack的一些比较常见的配置进行的梳理之一。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack配置_环境">
+<meta property="og:url" content="http://yoursite.com/2018/04/14/webpack配置_环境切换/index.html">
 <meta property="og:site_name" content="魏敏">
-<meta property="og:description" content="学习总结 思考感悟 知识管理">
+<meta property="og:description" content="最近在学习vue.js并尝试使用webpack，本篇是对于webpack的一些比较常见的配置进行的梳理之一。">
+<meta property="og:updated_time" content="2018-04-14T08:37:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="魏敏">
-<meta name="twitter:description" content="学习总结 思考感悟 知识管理">
+<meta name="twitter:title" content="webpack配置_环境">
+<meta name="twitter:description" content="最近在学习vue.js并尝试使用webpack，本篇是对于webpack的一些比较常见的配置进行的梳理之一。">
   
     <link rel="alternative" href="/atom.xml" title="魏敏" type="application/atom+xml">
   
@@ -190,53 +191,121 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-webpack配置_环境切换" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/10/13/summary/" class="archive-article-date">
-  	<time datetime="2015-10-13T07:07:48.000Z" itemprop="datePublished">Oct 13</time>
+    <div class="article-meta">
+      <a href="/2018/04/14/webpack配置_环境切换/" class="article-date">
+  	<time datetime="2018-04-14T08:37:37.000Z" itemprop="datePublished">2018-04-14</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/13/summary/">两个月来承办比赛总结</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      webpack配置_环境
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IoT-比赛承办/">IoT 比赛承办</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
 	</div>
 
-          
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      </div>
+      
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在学习vue.js并尝试使用webpack，本篇是对于webpack的一些比较常见的配置进行的梳理之一。<br><a id="more"></a></p>
+<h3 id="介绍">介绍</h3><p>项目的开发、测试以及生产环境一般都不是同一个，所以有时候我们会需要根据不同的环境进行不同的配置的情况。</p>
+<p>在node中，process对象是全局变量，通过它我们可以拿到环境信息， 即process.env，该属性返回一个包含用户环境信息的对象。所以，在webpack配置里比较常见到这样的代码：</p>
+<pre><code><span class="keyword">const</span> isDev = process.env.NODE_ENV === <span class="string">'development'</span>;
+</code></pre><p>在webpack中如何设置NODE_ENV呢？只需要在webpack插件配置里设置即可。</p>
+<pre><code><span class="comment">// webpack插件配置</span>
+<span class="string">plugins:</span> [
+    <span class="keyword">new</span> webpack.DefinePlugin({
+        <span class="string">'process.env'</span>: {
+<span class="label">            NODE_ENV:</span> isDev ? '"development"' : <span class="string">'"production"'</span>
+        }
+    }),
+    <span class="keyword">new</span> HTMLPlugin()
+]    
+</code></pre><p>然后，我们就可以在项目用process.env.NODE_ENV判断当前所处环境了。这里webpack.DefinePlugin创建／更新了一个在编译时可以配置的全局变量process.env。</p>
+<pre><code><span class="string">"dev"</span>: <span class="string">"cross-env NODE_ENV=development webpack-dev-server --mode development --config webpack.config.js"</span>
+</code></pre><h3 id="使用cross-env解决跨平台设置NODE_ENV的问题">使用cross-env解决跨平台设置NODE_ENV的问题</h3><p>cross-env提供了设置环境变量的脚本，让任何系统都能以unix的方式设置环境变量，兼容运行。<br>使用方法：</p>
+<pre><code><span class="number">1.</span>安装<span class="keyword">cross</span>-<span class="keyword">env</span>:npm install <span class="keyword">cross</span>-<span class="keyword">env</span> --save-dev
+<span class="number">2.</span>在NODE_ENV=xxxxxxx前面添加<span class="keyword">cross</span>-<span class="keyword">env</span>就可以了。
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/08/17/记2016百度秋招提前批面试/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">记2016百度秋招提前批面试</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="webpack配置_环境切换" data-title="webpack配置_环境" data-url="http://yoursite.com/2018/04/14/webpack配置_环境切换/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 </div>
       <footer id="footer">
@@ -262,9 +331,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}

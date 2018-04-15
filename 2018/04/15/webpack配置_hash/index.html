@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: event delegation | 魏敏</title>
+  <title>webpack配置_hash | 魏敏</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习总结 思考感悟 知识管理">
-<meta property="og:type" content="website">
-<meta property="og:title" content="魏敏">
-<meta property="og:url" content="http://yoursite.com/tags/event-delegation/index.html">
+  <meta name="description" content="本篇对比webpack中常见到的hash种类，主要是hash、chunkHash和contentHash。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack配置_hash">
+<meta property="og:url" content="http://yoursite.com/2018/04/15/webpack配置_hash/index.html">
 <meta property="og:site_name" content="魏敏">
-<meta property="og:description" content="学习总结 思考感悟 知识管理">
+<meta property="og:description" content="本篇对比webpack中常见到的hash种类，主要是hash、chunkHash和contentHash。">
+<meta property="og:updated_time" content="2018-04-15T13:12:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="魏敏">
-<meta name="twitter:description" content="学习总结 思考感悟 知识管理">
+<meta name="twitter:title" content="webpack配置_hash">
+<meta name="twitter:description" content="本篇对比webpack中常见到的hash种类，主要是hash、chunkHash和contentHash。">
   
     <link rel="alternative" href="/atom.xml" title="魏敏" type="application/atom+xml">
   
@@ -190,53 +191,121 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-webpack配置_hash" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/08/03/js-event-delegation/" class="archive-article-date">
-  	<time datetime="2015-08-03T13:03:52.000Z" itemprop="datePublished">Aug 3</time>
+    <div class="article-meta">
+      <a href="/2018/04/15/webpack配置_hash/" class="article-date">
+  	<time datetime="2018-04-15T13:12:56.000Z" itemprop="datePublished">2018-04-15</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/08/03/js-event-delegation/">事件委托</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      webpack配置_hash
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event-delegation/">event delegation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/plugin/">plugin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
 	</div>
 
-          
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      </div>
+      
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本篇对比webpack中常见到的hash种类，主要是hash、chunkHash和contentHash。<br><a id="more"></a></p>
+<h3 id="介绍">介绍</h3><p>在使用extract-text-webpack-plugin将css样式单独打包时，我们有用到这一一行配置。</p>
+<pre><code>plugins: [
+  new <span class="function"><span class="title">ExtractTextPlugin</span><span class="params">(<span class="string">"styles.[contentHash:8].css"</span>)</span></span>,
+]
+</code></pre><p>这里的contentHash是什么呢？</p>
+<p>使用hash，一般结合CDN缓存来用，通过hash，构建生成的文件名自动带上对应的MD5值，如果文件内容改变，那么对应文件的哈希值也会改变，其引用的URL地址也会改变，从而触发CDN服务器从源服务器上拉取对应数据，进而本地缓存更新。</p>
+<p>在webpack配置中，hash分为以下三类：</p>
+<ol>
+<li>hash</li>
+<li>chunkHash</li>
+<li>contentHash</li>
+</ol>
+<p>第一种跟整个项目的构建相关，只要项目里有文件更改，整个项目构建的hash值都会更改，并且全部文件都共用相同的hash值；</p>
+<p>这种方法每一次构建后生成的哈希值都不一样，即使文件内容压根没有改变。这样子是没办法实现缓存效果。</p>
+<p>第二种根据不同的入口文件(Entry)进行依赖文件解析、构建对应的chunk，生成对应的哈希值。比较常用的情况是在生产环境里把一些公共库和程序入口文件区分开，单独打包构建，接着我们采用chunkhash的方式生成哈希值，那么只要我们不改动公共库的代码，就可以保证其哈希值不会受影响。</p>
+<p>具体来说，比如项目主入口文件index.js及其对应的依赖文件比如index.css由于被打包在同一个模块，所以共用相同的chunkhash值，但是公共库由于是不同的模块，所以有单独的chunkhash。这样子就保证了在线上构建的时候只要文件内容没有更改就不会重复构建。</p>
+<p>但也存在问题，如果index.js更改了代码，css文件就算内容没有任何改变，由于是该模块发生了改变，导致css文件也会重复构建。</p>
+<p>第三种也就是代码里使用extract-text-webpack-plugin里的contentHash，保证了即使css文件所处的模块里就算其他文件内容改变，只要css文件内容不变，那么就不会重复构建。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/04/15/webpack配置_extract-text-webpack-plugin/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">webpack配置_extract-text-webpack-plugin</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="webpack配置_hash" data-title="webpack配置_hash" data-url="http://yoursite.com/2018/04/15/webpack配置_hash/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 </div>
       <footer id="footer">
@@ -262,9 +331,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}

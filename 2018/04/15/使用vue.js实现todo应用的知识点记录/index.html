@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用vue.js实现todo应用的知识点记录 | 魏敏</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近刚开始学习vue.js，第一个实践例子便是熟悉的todo应用了。本篇将实现过程中的一些初次接触vue.js的知识点进行记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用vue.js实现todo应用的知识点记录">
+<meta property="og:url" content="http://yoursite.com/2018/04/15/使用vue.js实现todo应用的知识点记录/index.html">
+<meta property="og:site_name" content="魏敏">
+<meta property="og:description" content="最近刚开始学习vue.js，第一个实践例子便是熟悉的todo应用了。本篇将实现过程中的一些初次接触vue.js的知识点进行记录。">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/vue-todo.png">
+<meta property="og:updated_time" content="2018-04-15T06:44:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用vue.js实现todo应用的知识点记录">
+<meta name="twitter:description" content="最近刚开始学习vue.js，第一个实践例子便是熟悉的todo应用了。本篇将实现过程中的一些初次接触vue.js的知识点进行记录。">
+  
+    <link rel="alternative" href="/atom.xml" title="魏敏" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars3.githubusercontent.com/u/11488580?v=3&amp;s=460" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">魏敏</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/随笔">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/weiminsjtu" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2710648914" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wei-min-63" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/CSS3/" style="font-size: 15px;">CSS3</a> <a href="/tags/Flexbox/" style="font-size: 15px;">Flexbox</a> <a href="/tags/Google-Girl-Hackathon/" style="font-size: 10px;">Google Girl Hackathon</a> <a href="/tags/HTML预编译/" style="font-size: 10px;">HTML预编译</a> <a href="/tags/IoT-比赛承办/" style="font-size: 10px;">IoT 比赛承办</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Jade/" style="font-size: 10px;">Jade</a> <a href="/tags/Location-based-Services/" style="font-size: 10px;">Location-based Services</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a> <a href="/tags/Route-Recommending/" style="font-size: 10px;">Route Recommending</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/Swiper/" style="font-size: 10px;">Swiper</a> <a href="/tags/Trajectory-Mining/" style="font-size: 10px;">Trajectory Mining</a> <a href="/tags/algorithms/" style="font-size: 20px;">algorithms</a> <a href="/tags/event-delegation/" style="font-size: 10px;">event delegation</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/jQuery/" style="font-size: 15px;">jQuery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/leetcode/" style="font-size: 20px;">leetcode</a> <a href="/tags/pagePiling-js/" style="font-size: 10px;">pagePiling.js</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/todo-app/" style="font-size: 10px;">todo app</a> <a href="/tags/vue-js/" style="font-size: 10px;">vue.js</a> <a href="/tags/webpack/" style="font-size: 15px;">webpack</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/开始/" style="font-size: 10px;">开始</a> <a href="/tags/插件/" style="font-size: 15px;">插件</a> <a href="/tags/案例/" style="font-size: 10px;">案例</a> <a href="/tags/滑动/" style="font-size: 10px;">滑动</a> <a href="/tags/百度/" style="font-size: 10px;">百度</a> <a href="/tags/盒模型/" style="font-size: 10px;">盒模型</a> <a href="/tags/随笔/" style="font-size: 20px;">随笔</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我要一步一步往上爬，等待阳光静静看着它的脸，小小的天有大大的梦想，重重的壳裹着轻轻地仰望。我要一步一步往上爬，在最高点乘着叶片往前飞，小小的天流过的泪和汗，总有一天我有属于我的天。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">魏敏</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars3.githubusercontent.com/u/11488580?v=3&amp;s=460" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">魏敏</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/weiminsjtu" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2710648914" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wei-min-63" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-使用vue.js实现todo应用的知识点记录" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/04/15/使用vue.js实现todo应用的知识点记录/" class="article-date">
+  	<time datetime="2018-04-15T06:44:14.000Z" itemprop="datePublished">2018-04-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用vue.js实现todo应用的知识点记录
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo-app/">todo app</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-js/">vue.js</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近刚开始学习vue.js，第一个实践例子便是熟悉的todo应用了。本篇将实现过程中的一些初次接触vue.js的知识点进行记录。<br><a id="more"></a></p>
+<h3 id="入口文件index-js">入口文件index.js</h3><p>在webpack入口文件中，我们实例化一个Vue对象，并传入了options：</p>
+<pre><code><span class="tag">new</span> <span class="tag">Vue</span>(<span class="rules">{
+    <span class="rule"><span class="attribute">render</span>:<span class="value"> (h) =&gt; <span class="function">h</span>(App)
+}).$<span class="function">mount</span>(root)</span></span>;</span>
+</code></pre><p>这里当new Vue(options)时，会自动运行vm._init方法，后续会跟进vue的源码了解实现原理。<br>render: (h) =&gt; h(App)这里实际上使用了ES6的箭头函数，实际上相当于：</p>
+<pre><code><span class="comment">// ES5  </span>
+(function (<span class="keyword">h</span>) {  
+  <span class="keyword">return</span> <span class="literal">h</span>(<span class="keyword">App</span>);  
+});  
+
+<span class="comment">// ES6  </span>
+<span class="keyword">h</span> =&gt; <span class="literal">h</span>(<span class="keyword">App</span>);
+</code></pre><p>而在vue中，这里其实h会传createElement</p>
+<pre><code>render: <span class="function"><span class="keyword">function</span> <span class="params">(createElement)</span> </span>{
+<span class="keyword">return</span> createElement(
+  <span class="string">'h'</span> + <span class="keyword">this</span>.level,   <span class="comment">// tag name 标签名称</span>
+  <span class="keyword">this</span>.$slots.<span class="keyword">default</span> <span class="comment">// 子组件中的阵列</span>
+)
+</code></pre><p>  }</p>
+<p>$mount则将vue组件APP挂载到了一个DOM节点root。</p>
+<h3 id="app-vue,todo_component">app.vue,todo component</h3><pre><code><span class="tag">&lt;<span class="title">template</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"app"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">Header</span>&gt;</span><span class="tag">&lt;/<span class="title">Header</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">Todo</span>&gt;</span><span class="tag">&lt;/<span class="title">Todo</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">template</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+    <span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">'./todo/header.vue'</span>;
+    <span class="keyword">import</span> Todo <span class="keyword">from</span> <span class="string">'./todo/todo.vue'</span>;
+
+    <span class="keyword">export</span> <span class="keyword">default</span> {
+        components: {
+            Header,
+            Todo
+        }
+    }
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">style</span> <span class="attribute">lang</span>=<span class="value">"stylus"</span> <span class="attribute">scoped</span>&gt;</span><span class="css">
+...
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p>每个vue组件都是由template、script、style三部分组成，分别对应html模版，js模型及业务和css样式。<br>我们的todo应用由Header和Todo两个组件构成。所引用的其它组件均需要在script里export default {<br>components:中指出。</p>
+<p><img src="http://7xii9b.com1.z0.glb.clouddn.com/vue-todo.png" alt=""></p>
+<p>style的<strong>scoped</strong>属性很好的实现了样式私有化的目的，表示该样式只作用于当下的模块。它的渲染规则是：</p>
+<ol>
+<li>给HTML的DOM节点加一个不重复data属性(形如：data-v-2311c06a)来表示他的唯一性</li>
+<li>在每句css选择器的末尾（编译后的生成的css语句）加一个当前组件的data属性选择器（如[data-v-5ef48958]）来私有化样式</li>
+</ol>
+<pre><code><span class="title">app</span>[<span class="typedef"><span class="keyword">data</span>-v-5ef48958] <span class="container">{
+      ...
+}</span></span>
+</code></pre><ol>
+<li><p>如果组件内部包含有其他组件，只会给其他组件的最外层标签加上当前组件的data属性</p>
+ <div data-v-5ef48958="" id="app"><br>     <header data-v-5712ee2d="" data-v-5ef48958="" class="main-header"><br>     …<br>     </header><br> </div>
+
+</li>
+</ol>
+<p>虽然达到了组件样式模块化的目的，但是会造成一种后果：每个样式的权重加重了。理论上我们要去修改这个样式，需要更高的权重去覆盖这个样式。但是scoped设计的初衷就是让样式变得不可修改。所以我想也没必要去修改样式吧？    </p>
+<h3 id="todo-vue">todo.vue</h3><p>我们将其分为三部分，一部分是输入框，一部分是要显示的todo list，以及最下面的数据统计和操作栏。<br>在最顶层的todo.vue维护着todo list items的数组：</p>
+<pre><code><span class="tag">export</span> <span class="tag">default</span> {
+    <span class="tag">data</span>() {
+        <span class="tag">return</span> {
+            <span class="attribute">todos</span>: [],
+            <span class="attribute">filter</span>: <span class="string">'all'</span><span class="comment">//默认filter值</span>
+        }
+    ...
+    },
+};
+</code></pre><p>todolist，我们定义一个新的组件item.vue:</p>
+<pre><code><span class="tag">&lt;<span class="title">template</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">:class</span>=<span class="value">"['todo-item', todo.completed ? 'completed' : '']"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span>
+               <span class="attribute">class</span>=<span class="value">"toggle"</span>
+               <span class="attribute">v-model</span>=<span class="value">"todo.completed"</span>
+        &gt;</span>
+        <span class="tag">&lt;<span class="title">label</span>&gt;</span><span class="comment"></span><span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"destroy"</span> @<span class="attribute">click</span>=<span class="value">"deleteTodo"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">template</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="typescript">
+    <span class="keyword">export</span> <span class="keyword">default</span> {
+        props: {
+            todo: {
+                <span class="keyword">type</span>: <span class="built_in">Object</span>,
+                <span class="built_in">require</span>: <span class="literal">true</span>
+            }
+        },
+        methods: {
+            deleteTodo() {
+                <span class="keyword">this</span>.$emit(<span class="string">'del'</span>, <span class="keyword">this</span>.todo.id)
+            }
+        }
+    }
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css">...</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre><p> 这里，props用于父组件todo.vue调用子组件item.vue时数据传递，这里接收传过来的todo对象。<br> 在点击每个item的删除按钮时，使用$emit抛出del事件及当前item的id交给父组件进行处理。</p>
+<p> 在todo.vue如何监听item.vue抛出的事件并进行处理呢？监听了del事件，并用deleteTodo进行处理。</p>
+<pre><code> &lt;<span class="constant">Item </span><span class="symbol">:todo=<span class="string">"todo"</span></span>
+      v-<span class="keyword">for</span>=<span class="string">"todo in filteredTodos"</span>
+      <span class="symbol">:key=<span class="string">"todo.id"</span></span>
+      <span class="variable">@del</span>=<span class="string">"deleteTodo"</span>
+&gt;
+&lt;<span class="regexp">/Item&gt;</span>
+</code></pre><p>这里的filteredTodos是从todo数组中计算出来的一个数组，进行了状态过滤。v-for遍历该数组并向item组件传递todo对象。</p>
+<p>所以归纳来，vue中父子组件之间的通信如下，todo应用剩下的业务逻辑基本也是按照这样来实现的：</p>
+<ol>
+<li>父组件使用 props 把数据传给子组件。</li>
+<li>子组件可以使用 $emit 触发父组件的自定义事件。</li>
+</ol>
+<h3 id="总结">总结</h3><p>本文是对实现todo应用的例子的知识点的简单梳理，但是vue.js的学习还有很多，比如虽然我们使用了v-model进行数据双向绑定，但其背后实现原理还需要进一步探索。还有vue的渲染原理、生命周期、虚拟DOM、vuex、vue-router等，以及webpack的打包原理等等。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/04/14/webpack配置_html-webpack-plugin/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">webpack配置_html-webpack-plugin</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="使用vue.js实现todo应用的知识点记录" data-title="使用vue.js实现todo应用的知识点记录" data-url="http://yoursite.com/2018/04/15/使用vue.js实现todo应用的知识点记录/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 魏敏
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

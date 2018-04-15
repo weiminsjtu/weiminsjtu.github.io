@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/04/15/webpack配置_extract-text-webpack-plugin/index.html">
 <meta property="og:site_name" content="魏敏">
 <meta property="og:description" content="本篇介绍了webpack中常见到的plugin：extract-text-webpack-plugin。">
-<meta property="og:updated_time" content="2018-04-15T07:12:30.000Z">
+<meta property="og:updated_time" content="2018-04-15T07:13:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack配置_extract-text-webpack-plugin">
 <meta name="twitter:description" content="本篇介绍了webpack中常见到的plugin：extract-text-webpack-plugin。">
@@ -195,7 +195,7 @@
   
     <div class="article-meta">
       <a href="/2018/04/15/webpack配置_extract-text-webpack-plugin/" class="article-date">
-  	<time datetime="2018-04-15T07:12:30.000Z" itemprop="datePublished">2018-04-15</time>
+  	<time datetime="2018-04-15T07:13:14.000Z" itemprop="datePublished">2018-04-15</time>
 </a>
     </div>
   
@@ -243,7 +243,7 @@
   ]
 },
 plugins: [
-  new ExtractTextPlugin<span class="params">(<span class="string">"styles.css"</span>)</span>,
+  new ExtractTextPlugin<span class="params">(<span class="string">"styles.[contentHash:8].css"</span>)</span>,
 ]
   }
 </code></pre><p>use:指需要什么样的loader去编译文件,这里由于源文件是.css所以选择css-loader<br>fallback:编译后用什么loader来提取css文件，这里style-loader是把css内嵌到浏览器。</p>

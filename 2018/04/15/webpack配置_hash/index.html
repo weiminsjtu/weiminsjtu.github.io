@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/04/15/webpack配置_hash/index.html">
 <meta property="og:site_name" content="魏敏">
 <meta property="og:description" content="本篇对比webpack中常见到的hash种类，主要是hash、chunkHash和contentHash。">
-<meta property="og:updated_time" content="2018-04-15T13:12:56.000Z">
+<meta property="og:updated_time" content="2018-04-15T13:40:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack配置_hash">
 <meta name="twitter:description" content="本篇对比webpack中常见到的hash种类，主要是hash、chunkHash和contentHash。">
@@ -195,7 +195,7 @@
   
     <div class="article-meta">
       <a href="/2018/04/15/webpack配置_hash/" class="article-date">
-  	<time datetime="2018-04-15T13:12:56.000Z" itemprop="datePublished">2018-04-15</time>
+  	<time datetime="2018-04-15T13:40:53.000Z" itemprop="datePublished">2018-04-15</time>
 </a>
     </div>
   
@@ -247,6 +247,20 @@
 <p>具体来说，比如项目主入口文件index.js及其对应的依赖文件比如index.css由于被打包在同一个模块，所以共用相同的chunkhash值，但是公共库由于是不同的模块，所以有单独的chunkhash。这样子就保证了在线上构建的时候只要文件内容没有更改就不会重复构建。</p>
 <p>但也存在问题，如果index.js更改了代码，css文件就算内容没有任何改变，由于是该模块发生了改变，导致css文件也会重复构建。</p>
 <p>第三种也就是代码里使用extract-text-webpack-plugin里的contentHash，保证了即使css文件所处的模块里就算其他文件内容改变，只要css文件内容不变，那么就不会重复构建。</p>
+<h3 id="解释">解释</h3><p>为什么会出现这三种hash呢？其实也是因为要解决前端开发和部署优化问题而给出的不同解决方案。这里可以查看fouber大神在<a href="https://www.zhihu.com/question/20790576/answer/32602154" target="_blank" rel="external">《大公司里怎样开发和部署前端代码？》</a>中的回答：</p>
+<p>第一步，从原始的前端开发讲起, index.html页面和它的样式文件a.css，用文本编辑器写代码，无需编译，本地预览，确认OK，丢到服务器，等待用户访问。这样，每次用户访问页面都要加载，是不是很影响性能，很浪费带宽。</p>
+<p>第二步优化，利用304，让浏览器使用本地缓存。但304是协商缓存，还是要和服务器通信一次。</p>
+<p>第三步，强制浏览器使用本地缓存（cache-control/expires），不要和服务器通信。好了，请求方面的优化已经达到变态级别。那问题来了：你都不让浏览器发资源请求了，这缓存咋更新？</p>
+<p>第四步，通过更新页面中引用的资源路径，让浏览器主动放弃缓存，加载新资源，即href=”a.css?v=1.0.0”，下次上新把版本号修改一下，就更新资源了。但是页面如果引用了3个css，而某次上线只改了其中的a.css，如果所有链接都更新版本，就会导致b.css，c.css的缓存也失效，那岂不是又有浪费了。。。</p>
+<p>第五步，让url的修改与文件内容关联，也就是说，只有文件内容变化，才会导致相应url的变更，从而实现文件级别的精确缓存控制。也就是使用hash。</p>
+<p>第六步，为了进一步提升网站性能，会把静态资源和动态网页分集群部署，静态资源会被部署到CDN节点上，网页中引用的资源也会变成对应的部署路径。这种情况要采取非覆盖式发布。用文件的摘要信息来对资源文件进行重命名，把摘要信息放到资源文件发布路径中，这样，内容有修改的资源就变成了一个新的文件发布到线上，不会覆盖已有的资源文件。上线过程中，<strong>先全量部署静态资源，再灰度部署页面</strong>。</p>
+<p>总结为：</p>
+<ol>
+<li>配置超长时间的本地缓存［节省带宽，提高性能］</li>
+<li>采用内容摘要作为缓存更新依据［精确的缓存控制］</li>
+<li>静态资源CDN部［优化网络请求］</li>
+<li>资源发布路径实现非覆盖式发布［平滑升级］</li>
+</ol>
 
       
     </div>

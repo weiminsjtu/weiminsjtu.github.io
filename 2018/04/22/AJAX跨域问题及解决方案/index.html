@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="魏敏">
 <meta property="og:description" content="本篇对AJAX跨域问题的解决方案进行了总结。">
 <meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/ajax_crossregion.png">
-<meta property="og:updated_time" content="2018-04-22T06:06:49.000Z">
+<meta property="og:updated_time" content="2018-04-22T06:08:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AJAX跨域问题及解决方案.md">
 <meta name="twitter:description" content="本篇对AJAX跨域问题的解决方案进行了总结。">
@@ -196,7 +196,7 @@
   
     <div class="article-meta">
       <a href="/2018/04/22/AJAX跨域问题及解决方案/" class="article-date">
-  	<time datetime="2018-04-22T06:06:49.000Z" itemprop="datePublished">2018-04-22</time>
+  	<time datetime="2018-04-22T06:08:06.000Z" itemprop="datePublished">2018-04-22</time>
 </a>
     </div>
   
@@ -255,7 +255,7 @@
 <p>当然callback也可以改成其它，但是得前后台约定好。</p>
 <p><strong>弊端</strong></p>
 <p>1）服务器端需要改动代码支持</p>
-<p>2）只支持GET</p>
+<p>2）只支持GET，因为JSONP是通过动态创建script实现的，而动态创建script的时候只能用get没有办法用post。</p>
 <p>3）发送的不是XHR请求，所以不支持异步</p>
 
       

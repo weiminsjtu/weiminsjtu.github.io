@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2015/7 | 魏敏</title>
+  <title>AJAX跨域问题及解决方案.md | 魏敏</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习总结 思考感悟 知识管理">
-<meta property="og:type" content="website">
-<meta property="og:title" content="魏敏">
-<meta property="og:url" content="http://yoursite.com/archives/2015/07/index.html">
+  <meta name="description" content="本篇对AJAX跨域问题的解决方案进行了总结。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AJAX跨域问题及解决方案.md">
+<meta property="og:url" content="http://yoursite.com/2018/04/22/AJAX跨域问题及解决方案/index.html">
 <meta property="og:site_name" content="魏敏">
-<meta property="og:description" content="学习总结 思考感悟 知识管理">
+<meta property="og:description" content="本篇对AJAX跨域问题的解决方案进行了总结。">
+<meta property="og:image" content="http://7xii9b.com1.z0.glb.clouddn.com/ajax_crossregion.png">
+<meta property="og:updated_time" content="2018-04-22T06:06:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="魏敏">
-<meta name="twitter:description" content="学习总结 思考感悟 知识管理">
+<meta name="twitter:title" content="AJAX跨域问题及解决方案.md">
+<meta name="twitter:description" content="本篇对AJAX跨域问题的解决方案进行了总结。">
   
     <link rel="alternative" href="/atom.xml" title="魏敏" type="application/atom+xml">
   
@@ -190,208 +192,130 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-AJAX跨域问题及解决方案" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2018/04/22/AJAX跨域问题及解决方案/" class="article-date">
+  	<time datetime="2018-04-22T06:06:49.000Z" itemprop="datePublished">2018-04-22</time>
+</a>
+    </div>
   
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      AJAX跨域问题及解决方案.md
+    </h1>
+  
+
+      </header>
       
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AJAX/">AJAX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cross-region/">cross-region</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/07/30/js-property-and-method/" class="archive-article-date">
-  	<time datetime="2015-07-30T03:19:28.000Z" itemprop="datePublished">Jul 30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/07/30/js-property-and-method/">傻傻分不清楚之js属性和方法</a>
-    </h1>
-  
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本篇对AJAX跨域问题的解决方案进行了总结。<br><a id="more"></a></p>
+<h3 id="为什么发生AJAX跨域">为什么发生AJAX跨域</h3><p>当同时满足以下三个原因的时候，会发生跨域安全问题</p>
+<ol>
+<li>浏览器限制：浏览器出于安全考虑会对请求进行安全校验，如果校验不通过就会报跨域安全问题。</li>
+<li>跨域：如果请求里协议、域名、端口任何一个不一样，浏览器都会认为是跨域</li>
+<li>XHR请求：</li>
+</ol>
+<h3 id="解决思路">解决思路</h3><p><img src="http://7xii9b.com1.z0.glb.clouddn.com/ajax_crossregion.png" alt=""></p>
+<ol>
+<li><p>解除浏览器限制 － 命令行参数启动浏览器，指定参数让浏览器不去做校验，但这种方案要求每个人对自己客户端做改动，意义不大。</p>
+</li>
+<li><p>发送的请求不是XHR请求 － 使用JSONP，通过动态创建一个script，在script里发送跨域请求。</p>
+</li>
+<li><p>解决跨域 － 1）被调用方修改，支持跨域，比如从a域名调用b域名时，在b域名返回的信息里面，加入一些字段告诉浏览器我允许a域名调用。2）调用方修改，隐藏跨域，通过一个代理，从浏览器发出去的都是a域名请求，通过代理把指定的URL全转到b域名，对于浏览器来说域名没有变化。</p>
+</li>
+</ol>
+<h3 id="JSONP">JSONP</h3><p>JSONP(JSON with Padding)主要利用script标签请求资源可以跨域来解决跨域问题的。但使用JSONP服务器端需要做出对应的改动来支持。</p>
+<p><strong>JSONP实现原理</strong></p>
+<p>使用JSONP发送请求时，</p>
+<p>1）请求type不是xhr，而是script</p>
+<p>2）返回的类型不是JSON数据(application/json)，而是JS脚本（application/javascript）</p>
+<p>3) 请求的URL会被加上callpack参数，get？callback＝….</p>
+<p>所以JSONP实现原理是：发送请求的时候加入<strong>callback参数</strong>，后端接收到请求，发现有callback参数，所以知道这是一个JSONP请求，然后就把返回的数据由JSON变成<strong>javascript</strong>，其内容就是一个函数调用，<strong>函数名等于callback参数的传值，将返回的json数据作为该函数的参数</strong>。</p>
+<p>当然callback也可以改成其它，但是得前后台约定好。</p>
+<p><strong>弊端</strong></p>
+<p>1）服务器端需要改动代码支持</p>
+<p>2）只支持GET</p>
+<p>3）发送的不是XHR请求，所以不支持异步</p>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/07/28/css3-flexbox案例/" class="archive-article-date">
-  	<time datetime="2015-07-28T08:31:39.000Z" itemprop="datePublished">Jul 28</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/07/28/css3-flexbox案例/">Flexbox案例</a>
-    </h1>
   
+    <a href="/2018/04/15/webpack配置_hash/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">webpack配置_hash</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS3/">CSS3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flexbox/">Flexbox</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/案例/">案例</a></li></ul>
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/07/28/css3-flexbox/" class="archive-article-date">
-  	<time datetime="2015-07-28T05:11:36.000Z" itemprop="datePublished">Jul 28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/07/28/css3-flexbox/">CSS3伸缩布局盒模型</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS3/">CSS3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flexbox/">Flexbox</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/盒模型/">盒模型</a></li></ul>
-	</div>
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="AJAX跨域问题及解决方案" data-title="AJAX跨域问题及解决方案.md" data-url="http://yoursite.com/2018/04/22/AJAX跨域问题及解决方案/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/07/27/swiper/" class="archive-article-date">
-  	<time datetime="2015-07-27T13:03:00.000Z" itemprop="datePublished">Jul 27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/07/27/swiper/">Swiper 移动端触摸滑动插件</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swiper/">Swiper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pagePiling-js/">pagePiling.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/插件/">插件</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/滑动/">滑动</a></li></ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/07/26/extend-jQuery/" class="archive-article-date">
-  	<time datetime="2015-07-26T11:43:00.000Z" itemprop="datePublished">Jul 26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/07/26/extend-jQuery/">jQuery插件之初学篇</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/插件/">插件</a></li></ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/07/25/hello-world/" class="archive-article-date">
-  	<time datetime="2015-07-25T08:03:00.000Z" itemprop="datePublished">Jul 25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/07/25/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开始/">开始</a></li></ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 </div>
       <footer id="footer">
@@ -417,8 +341,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false
